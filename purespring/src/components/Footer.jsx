@@ -17,7 +17,7 @@ function Footer({ darkMode }) {
                     {/* Brand Info */}
                     <div className="col-md-4 mb-4">
                         <img
-                            src="../src/assets/logo/page1_img1.jpeg"
+                            src="/assets/logo/page1_img1.jpeg" // Logo from provided list
                             alt="Ribabu’s Place Ltd Logo"
                             style={{ width: "120px", borderRadius: "8px" }}
                             className="mb-3"
@@ -75,14 +75,26 @@ function Footer({ darkMode }) {
                             Owerri, Imo State
                         </p>
                         <div className="social-icons mt-3">
-                            {/* Replace href="#" with actual social links once found */}
-                            <a href="#" target="_blank" rel="noreferrer">
+                            {/* Replace with actual social media URLs */}
+                            <a
+                                href="https://facebook.com/ribabusplaceltd"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
                                 <FaFacebookF />
                             </a>
-                            <a href="#" target="_blank" rel="noreferrer">
+                            <a
+                                href="https://instagram.com/ribabusplaceltd"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
                                 <FaInstagram />
                             </a>
-                            <a href="#" target="_blank" rel="noreferrer">
+                            <a
+                                href="https://linkedin.com/company/ribabusplaceltd"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
                                 <FaLinkedinIn />
                             </a>
                         </div>

@@ -40,7 +40,7 @@ function App() {
                 style={{
                     height: "100vh",
                     background: `linear-gradient(135deg, rgba(0,119,182,0.85), rgba(0,184,148,0.85)), 
-                      url("../src/assets/about/page3_img1.jpeg") center/cover no-repeat`, // Updated image
+                      url("/assets/about/page3_img1.jpeg") center/cover no-repeat`, // Updated image
                 }}
                 data-aos="fade-in"
             >
@@ -81,7 +81,7 @@ function App() {
                         <div className="col-md-6 mb-3" data-aos="fade-right">
                             {/* About Image */}
                             <img
-                                src="../src/assets/about/page3_img1.jpeg" // Updated image (assuming this is the team photo or company office)
+                                src="/assets/about/page3_img1.jpeg" // Updated image (assuming this is the team photo or company office)
                                 alt="About Ribabu’s Place Ltd"
                                 className="img-fluid rounded shadow"
                             />
@@ -148,7 +148,7 @@ function App() {
                         >
                             {/* Bottled Water */}
                             <img
-                                src="../src/assets/products/page4_img1.jpeg" // Updated image
+                                src="/assets/products/page4_img1.jpeg" // Updated image
                                 className="card-img-top"
                                 alt="Bottled Water"
                             />
@@ -171,7 +171,7 @@ function App() {
                         >
                             {/* Sachet Water */}
                             <img
-                                src="../src/assets/products/page5_img1.jpeg" // Updated image
+                                src="/assets/products/page5_img1.jpeg" // Updated image
                                 className="card-img-top"
                                 alt="Sachet Water"
                             />
@@ -194,7 +194,7 @@ function App() {
                         >
                             {/* Bulk Supply */}
                             <img
-                                src="../src/assets/products/page6_img1.jpeg" // Updated image
+                                src="/assets/products/page6_img1.jpeg" // Updated image
                                 className="card-img-top"
                                 alt="Bulk Supply"
                             />
@@ -230,7 +230,7 @@ function App() {
                         <div className="col-md-6 mb-3" data-aos="fade-right">
                             {/* Dredging */}
                             <img
-                                src="../src/assets/services/page7_img1.jpeg" // Updated image
+                                src="/assets/services/page7_img1.jpeg" // Updated image
                                 alt="Sand Dredging"
                                 className="img-fluid rounded mb-3"
                             />
@@ -249,7 +249,7 @@ function App() {
                         <div className="col-md-6 mb-3" data-aos="fade-left">
                             {/* Water Production & Logistics */}
                             <img
-                                src="../src/assets/services/page8_img1.jpeg" // Updated image
+                                src="/assets/services/page8_img1.jpeg" // Updated image
                                 alt="Water Production & Logistics"
                                 className="img-fluid rounded mb-3"
                             />
@@ -310,11 +310,11 @@ function App() {
                     </h2>
                     <div className="row">
                         {[
-                            "../src/assets/gallery/page6_img1.jpeg", // Updated image
-                            "../src/assets/gallery/page7_img1.jpeg", // Updated image
-                            "../src/assets/gallery/page9_img1.jpeg", // Updated image
-                            "../src/assets/gallery/page10_img1.jpeg", // Updated image
-                            "../src/assets/gallery/page11_img1.jpeg", // Updated image
+                            "/assets/gallery/page6_img1.jpeg", // Updated image
+                            "/assets/gallery/page7_img1.jpeg", // Updated image
+                            "/assets/gallery/page9_img1.jpeg", // Updated image
+                            "/assets/gallery/page10_img1.jpeg", // Updated image
+                            "/assets/gallery/page11_img1.jpeg", // Updated image
                         ].map((img, i) => (
                             <div
                                 key={i}
