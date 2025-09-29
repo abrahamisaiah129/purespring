@@ -1,410 +1,539 @@
-import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import { Container, Button, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Modal,
+  Carousel,
+  Button,
+} from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import ScrollToTopButton from "./components/scrollToTopButton";
-import Loader from "./components/Loader";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-    const [darkMode, setDarkMode] = useState(false);
-    const [loading, setLoading] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [showFullGallery, setShowFullGallery] = useState(false);
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
 
-    useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 2500);
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-        return () => clearTimeout(timer);
-    }, []);
-
-    if (loading) {
-        return <Loader />;
+    if (darkMode) {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
     }
+  }, [darkMode]);
 
-    return (
-        <div
-            className={darkMode ? "bg-dark text-light" : "bg-light text-dark"}
-            style={{ minHeight: "100vh", transition: "all 0.4s ease" }}
-        >
-            {/* Navbar */}
-            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-            <ScrollToTopButton />
+  // Hero data
+  const heroSlides = [
+    {
+      src: "/assets/video-thumbnail/waterbottles.webp",
+      alt: "Bottled water",
+      comment: "Hero image: water bottles",
+      heading: "Pure Water, Pure Life",
+      subtext: "Clean and ecofriendly hydration",
+    },
+    {
+      src: "/assets/video-thumbnail/wateringlass.jpeg",
+      alt: "Drinking water",
+      comment: "Hero image: clean drinking water",
+      heading: "Refresh Your Life",
+      subtext: "Hydration you can trust every day",
+    },
+    {
+      src: "/assets/video-thumbnail/man-drinking-water.jpg",
+      alt: "Eco-friendly packaging",
+      comment: "Hero image: eco packaging concept",
+      heading: "Eco & Clean",
+      subtext: "Sustainable packaging, safe for the planet",
+    },
+  ];
 
-            {/* Hero Section */}
-            <section
-                id="home"
-                className="d-flex align-items-center text-center text-white gradient-animate"
-                style={{
-                    height: "100vh",
-                    background: `linear-gradient(135deg, rgba(0,119,182,0.85), rgba(0,184,148,0.85)), 
-                      url("/assets/about/page3_img1.jpeg") center/cover no-repeat`, // Updated image
-                }}
-                data-aos="fade-in"
-            >
-                <Container>
-                    <h1 className="fw-bold display-3" data-aos="zoom-in">
-                        Ribabu’s Place Ltd
-                    </h1>
-                    <p
-                        className="lead mb-4"
-                        data-aos="fade-up"
-                        data-aos-delay="200"
-                    >
-                        Pure Refreshment. Solid Foundations.
-                    </p>
-                    <div data-aos="fade-up" data-aos-delay="400">
-                        <Button
-                            href="#products"
-                            size="lg"
-                            variant="success"
-                            className="me-3"
-                        >
-                            Discover Our Water
-                        </Button>
-                        <Button href="#services" size="lg" variant="light">
-                            Explore Dredging
-                        </Button>
-                    </div>
-                </Container>
-            </section>
+  // Example other data arrays (you already had these)
+  const sustainabilityImages = [
+    {
+      src: "/assets/defImg/eco-friendly-bottle.jpg",
+      alt: "Eco-Friendly Bottling",
+      comment: "Show bottles with eco labels or packaging",
+      title: "Eco-Friendly Bottling",
+      text: "We use recyclable and biodegradable packaging to reduce waste.",
+    },
+    {
+      src: "/assets/defImg/water-purifier.webp",
+      alt: "Water Conservation",
+      comment: "Show water source / conservation imagery",
+      title: "Water Conservation",
+      text: "Our purification methods save thousands of liters yearly.",
+    },
+    {
+      src: "/assets/defImg/closeup-doctor-drinking-water-glass.webp",
+      alt: "PH Neutral Water",
+      comment: "Show water testing or lab imagery",
+      title: "PH Neutral Water",
+      text: "Our water is tested to ensure it is perfectly balanced.",
+    },
+  ];
 
-            {/* About Us Section */}
-            <section id="about" className="py-5" data-aos="fade-up">
-                <Container>
-                    <h2 className="text-center mb-4 fw-bold" data-aos="zoom-in">
-                        About Ribabu’s Place Ltd
-                    </h2>
-                    <div className="row align-items-center">
-                        <div className="col-md-6 mb-3" data-aos="fade-right">
-                            {/* About Image */}
-                            <img
-                                src="/assets/about/page3_img1.jpeg" // Updated image (assuming this is the team photo or company office)
-                                alt="About Ribabu’s Place Ltd"
-                                className="img-fluid rounded shadow"
-                            />
-                        </div>
-                        <div className="col-md-6" data-aos="fade-left">
-                            <p>
-                                Founded in <strong>2010</strong>, Ribabu’s Place
-                                Ltd (RC-906037) is headquartered at{" "}
-                                <em>
-                                    Road 4, Plot 859, Uratta Housing Estate,
-                                    Owerri, Imo State
-                                </em>
-                                . We specialize in premium table water and
-                                reliable sand dredging services across Nigeria.
-                            </p>
-                            <p>
-                                Our mission is simple: to <em>refresh lives</em>{" "}
-                                and <em>build strong foundations</em> through
-                                safe, accessible water and sustainable dredging
-                                operations.
-                            </p>
-                            <ul className="custom-list">
-                                <li>
-                                    <strong>Mission:</strong> Provide clean
-                                    hydration and dependable dredging for every
-                                    community.
-                                </li>
-                                <li>
-                                    <strong>Vision:</strong> To be the most
-                                    trusted name in water and construction
-                                    support services in Africa.
-                                </li>
-                                <li>
-                                    <strong>Core Values:</strong> Quality ·
-                                    Sustainability · Customer First
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  const deliveryImages = [
+    {
+      src: "/assets/defImg/water-delivery-truck-service-.webp",
+      alt: "On-Time Delivery",
+      comment: "Image of a delivery truck in city environment",
+      title: "On-Time Guarantee",
+      text: "We deliver fresh water right when you need it.",
+    },
+    {
+      src: "/assets/defImg/nationwide.jpg",
+      alt: "Wide Service Coverage",
+      comment: "Show map or multiple delivery vans",
+      title: "Wide Coverage",
+      text: "Serving homes, offices, and businesses across regions.",
+    },
+    {
+      src: "/assets/defImg/portrait-black-customer-support-consultant-receptionist-call-center-agent-with-headset-happy-expert-professional-woman-employee-working-ecommerce-telemarketing-company.jpg",
+      alt: "Customer Support",
+      comment: "Call center or support agent image",
+      title: "24/7 Support",
+      text: "Need urgent delivery? Our team is always ready.",
+    },
+  ];
 
-            {/* Products Section */}
-            <section
-                id="products"
-                className="py-5 gradient-animate"
-                style={{
-                    background: darkMode
-                        ? "linear-gradient(135deg, #0d1b2a, #1b263b)"
-                        : "linear-gradient(135deg, #0077b6, #00b894)",
-                    color: "white",
-                }}
-                data-aos="fade-up"
-            >
-                <Container>
-                    <h2 className="text-center mb-4 fw-bold" data-aos="zoom-in">
-                        Our Products
-                    </h2>
-                    <div className="row">
-                        <div
-                            className="col-md-4 mb-3"
-                            data-aos="zoom-in"
-                            data-aos-delay="100"
-                        >
-                            {/* Bottled Water */}
-                            <img
-                                src="/assets/products/page4_img1.jpeg" // Updated image
-                                className="card-img-top"
-                                alt="Bottled Water"
-                            />
-                            <h5 className="mt-3">Bottled Water</h5>
-                            <p>
-                                Premium bottled water in multiple sizes, sealed
-                                for safety.
-                            </p>
-                            <ul className="custom-list">
-                                <li>Safe & sealed</li>
-                                <li>Multiple sizes</li>
-                                <li>Ideal for homes & offices</li>
-                            </ul>
-                        </div>
+  const purificationSteps = [
+    {
+      src: "/assets/defImg/natural-springsource.jpg",
+      alt: "Water Collection",
+      comment: "Image of natural spring or source",
+      title: "1. Collection",
+      text: "Sourced from natural springs and verified clean reserves.",
+    },
+    {
+      src: "/assets/defImg/filtration-stage.jpg",
+      alt: "Filtration Stage",
+      comment: "Filter units or membranes",
+      title: "2. Filtration",
+      text: "Multi-stage filters remove sediments and impurities.",
+    },
+    {
+      src: "/assets/defImg/purification-stage.jpg",
+      alt: "Purification",
+      comment: "RO / UV purification equipment",
+      title: "3. Purification",
+      text: "Advanced RO + UV purification ensures absolute safety.",
+    },
+    {
+      src: "/assets/defImg/packaging-stage.webp",
+      alt: "Packaging",
+      comment: "Packaging line or sealed bottles",
+      title: "4. Packaging",
+      text: "Hygienically sealed to keep every drop pure.",
+    },
+  ];
 
-                        <div
-                            className="col-md-4 mb-3"
-                            data-aos="zoom-in"
-                            data-aos-delay="200"
-                        >
-                            {/* Sachet Water */}
-                            <img
-                                src="/assets/products/page5_img1.jpeg" // Updated image
-                                className="card-img-top"
-                                alt="Sachet Water"
-                            />
-                            <h5 className="mt-3">Sachet Water</h5>
-                            <p>
-                                Affordable, hygienically packaged for everyday
-                                hydration.
-                            </p>
-                            <ul className="custom-list">
-                                <li>Fresh & clean</li>
-                                <li>Affordable</li>
-                                <li>Trusted nationwide</li>
-                            </ul>
-                        </div>
+  const certifications = [
+    {
+      src: "/assets/defImg/ISO 22000 certification logo.png",
+      alt: "ISO 22000",
+      comment: "ISO 22000 certification logo",
+      text: "ISO 22000 Food Safety",
+    },
+    {
+      src: "/assets/defImg/WHO.png",
+      alt: "WHO Standards",
+      comment: "WHO drinking water standards logo",
+      text: "WHO Drinking Water Guidelines",
+    },
+    {
+      src: "/assets/defImg/NAFDAC.png",
+      alt: "NAFDAC Approved",
+      comment: "NAFDAC logo (Nigeria regulatory body)",
+      text: "NAFDAC Certified",
+    },
+    {
+      src: "/assets/defImg/Halal.jpeg",
+      alt: "Halal Certified",
+      comment: "Halal certification logo",
+      text: "Halal Certified",
+    },
+  ];
 
-                        <div
-                            className="col-md-4 mb-3"
-                            data-aos="zoom-in"
-                            data-aos-delay="300"
-                        >
-                            {/* Bulk Supply */}
-                            <img
-                                src="/assets/products/page6_img1.jpeg" // Updated image
-                                className="card-img-top"
-                                alt="Bulk Supply"
-                            />
-                            <h5 className="mt-3">Bulk Supply</h5>
-                            <p>
-                                Water delivered in bulk for events, hotels, and
-                                projects.
-                            </p>
-                            <ul className="custom-list">
-                                <li>Corporate solutions</li>
-                                <li>Efficient logistics</li>
-                                <li>Perfect for events</li>
-                            </ul>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  const testimonials = [
+    {
+      text: "The water tastes amazing, and I love the eco-friendly packaging!",
+      author: "Constance R.",
+    },
+    {
+      text: "Fast delivery and top-notch purification. My family only trusts them now.",
+      author: "Emeka K.",
+    },
+    {
+      text: "Best water service I’ve experienced. Always reliable and refreshing.",
+      author: "Jerry L.",
+    },
+  ];
 
-            {/* Services Section */}
-            <section id="services" className="py-5" data-aos="fade-up">
-                <Container>
-                    <h2 className="text-center mb-4 fw-bold" data-aos="zoom-in">
-                        Our Services
-                    </h2>
-                    <p className="text-center mb-5 w-75 mx-auto">
-                        Ribabu’s Place Ltd, as a subsidiary brand for table
-                        water and foundation solutions, offers{" "}
-                        <strong>premium hydration</strong>,{" "}
-                        <strong>eco-friendly dredging</strong>, and{" "}
-                        <strong>seamless logistics</strong> across Nigeria.
-                    </p>
-                    <div className="row">
-                        <div className="col-md-6 mb-3" data-aos="fade-right">
-                            {/* Dredging */}
-                            <img
-                                src="/assets/services/page7_img1.jpeg" // Updated image
-                                alt="Sand Dredging"
-                                className="img-fluid rounded mb-3"
-                            />
-                            <h4>Sand Dredging</h4>
-                            <p>
-                                Our dredging operations are designed for maximum
-                                output with minimal environmental impact.
-                            </p>
-                            <ul className="custom-list">
-                                <li>High-quality sand supply</li>
-                                <li>Eco-friendly methods</li>
-                                <li>Reliable, prompt delivery</li>
-                            </ul>
-                        </div>
+  const galleryImages = [
+    {
+      src: "/assets/defImg/gallery1.jpg",
+      alt: "Factory interior view",
+      comment: "Inside the bottling factory, production line",
+    },
+    {
+      src: "/assets/defImg/gallery2.jpg",
+      alt: "Delivery van on road",
+      comment: "Water delivery van in action",
+    },
+    {
+      src: "/assets/defImg/gallery3.jpg",
+      alt: "Customer drinking water",
+      comment: "Happy customer drinking a glass of water",
+    },
+    {
+      src: "/assets/defImg/gallery4.jpg",
+      alt: "Eco packaging display",
+      comment: "Display of eco-friendly packaging",
+    },
+    {
+      src: "/assets/defImg/gallery5.jpg",
+      alt: "Purification equipment",
+      comment: "Water purification machinery / equipment",
+    },
+    {
+      src: "/assets/defImg/gallery6.jpg",
+      alt: "Bottling line closeup",
+      comment: "Closeup of bottles on filling line",
+    },
+    {
+      src: "/assets/defImg/gallery7.jpg",
+      alt: "Staff at plant",
+      comment: "Workers handling bottles in plant",
+    },
+    {
+      src: "/assets/defImg/gallery8.jpg",
+      alt: "Pipes and valves",
+      comment: "Industrial piping and valves",
+    },
+    {
+      src: "/assets/defImg/gallery9.jpg",
+      alt: "Water tank outdoors",
+      comment: "Storage tanks in plant outdoors",
+    },
+    {
+      src: "/assets/defImg/gallery10.jpg",
+      alt: "Quality control lab",
+      comment: "Lab equipment for quality control testing",
+    },
+    {
+      src: "/assets/defImg/gallery11.jpg",
+      alt: "Warehouse storage",
+      comment: "Warehouse full of packaged water bottles",
+    },
+    {
+      src: "/assets/defImg/gallery12.jpg",
+      alt: "Delivery loading dock",
+      comment: "Loading trucks at dock for delivery",
+    },
+    {
+      src: "/assets/defImg/gallery13.jpg",
+      alt: "Bottle caps station",
+      comment: "Station applying caps to bottles",
+    },
+    {
+      src: "/assets/defImg/gallery14.jpg",
+      alt: "Water filtration membranes",
+      comment: "Membrane filters in purification stage",
+    },
+    {
+      src: "/assets/defImg/gallery15.jpg",
+      alt: "Cleanroom environment",
+      comment: "Sterile / clean area of production",
+    },
+    {
+      src: "/assets/defImg/gallery16.jpg",
+      alt: "Transport trucks queue",
+      comment: "Multiple delivery trucks in queue",
+    },
+    {
+      src: "/assets/defImg/gallery17.jpg",
+      alt: "Employees at inspection",
+      comment: "Staff inspecting bottles for defects",
+    },
+    {
+      src: "/assets/defImg/gallery18.jpg",
+      alt: "Finished product display",
+      comment: "Final packaged water bottles ready for sale",
+    },
+  ];
+  const videoData = {
+    thumbnail: "/assets/video-thumbnail/wateringlass.jpeg",
+    videoUrl: "/assets/defImg/video1.mp4",
+  };
 
-                        <div className="col-md-6 mb-3" data-aos="fade-left">
-                            {/* Water Production & Logistics */}
-                            <img
-                                src="/assets/services/page8_img1.jpeg" // Updated image
-                                alt="Water Production & Logistics"
-                                className="img-fluid rounded mb-3"
-                            />
-                            <h4>Water Production & Logistics</h4>
-                            <p>
-                                Our table water is produced under strict quality
-                                controls and delivered nationwide.
-                            </p>
-                            <ul className="custom-list">
-                                <li>Stringent quality checks</li>
-                                <li>Clean & safe packaging</li>
-                                <li>Fast delivery across regions</li>
-                            </ul>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  const openModal = (content) => {
+    setModalContent(content);
+    setShowModal(true);
+  };
 
-            {/* Values Section */}
-            <section
-                id="values"
-                className="py-5"
-                style={{ backgroundColor: darkMode ? "#222" : "#f8f9fa" }}
-                data-aos="fade-up"
-            >
-                <Container>
-                    <h2 className="text-center mb-4 fw-bold" data-aos="zoom-in">
-                        Our Values
-                    </h2>
-                    <div className="row text-center">
-                        <div className="col-md-4 mb-3" data-aos="zoom-in">
-                            <h4>Quality</h4>
-                            <p>
-                                Every product and service is held to the highest
-                                standards.
-                            </p>
-                        </div>
-                        <div className="col-md-4 mb-3" data-aos="zoom-in">
-                            <h4>Sustainability</h4>
-                            <p>
-                                We operate responsibly, protecting the
-                                environment long-term.
-                            </p>
-                        </div>
-                        <div className="col-md-4 mb-3" data-aos="zoom-in">
-                            <h4>Customer First</h4>
-                            <p>Your needs drive everything we do.</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-            {/* Gallery Section */}
-            <section id="gallery" className="py-5" data-aos="fade-up">
-                <Container>
-                    <h2 className="text-center mb-4 fw-bold" data-aos="zoom-in">
-                        Gallery
-                    </h2>
-                    <div className="row">
-                        {[
-                            "/assets/gallery/page6_img1.jpeg", // Updated image
-                            "/assets/gallery/page7_img1.jpeg", // Updated image
-                            "/assets/gallery/page9_img1.jpeg", // Updated image
-                            "/assets/gallery/page10_img1.jpeg", // Updated image
-                            "/assets/gallery/page11_img1.jpeg", // Updated image
-                        ].map((img, i) => (
-                            <div
-                                key={i}
-                                className="col-md-4 mb-3"
-                                data-aos="zoom-in"
-                                data-aos-delay={i * 150}
-                            >
-                                <img
-                                    src={img}
-                                    alt="gallery"
-                                    className="img-fluid rounded shadow-sm"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </Container>
-            </section>
+  // Gallery: decide how many to show
+  const initialCount = 8;
+  const imagesToShow = showFullGallery
+    ? galleryImages
+    : galleryImages.slice(0, initialCount);
 
-            {/* Contact Section */}
-            <section
-                id="contact"
-                className="py-5 gradient-animate"
-                style={{
-                    background: darkMode
-                        ? "linear-gradient(135deg, #1e1e1e, #111)"
-                        : "linear-gradient(135deg, #0077b6, #00b894)",
-                    color: "white",
-                }}
-                data-aos="fade-up"
-            >
-                <Container>
-                    <h2 className="text-center mb-4" data-aos="zoom-in">
-                        Contact Us
-                    </h2>
-                    <div className="row">
-                        <div className="col-md-6" data-aos="fade-right">
-                            <Form>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your name"
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        placeholder="Enter your email"
-                                    />
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Message</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={4}
-                                        placeholder="Type your message"
-                                    />
-                                </Form.Group>
-                                <Button type="submit" variant="light">
-                                    Send Message
-                                </Button>
-                            </Form>
-                        </div>
-                        <div className="col-md-6" data-aos="fade-left">
-                            <h5>Email</h5>
-                            <p>
-                                <a
-                                    href="mailto:info@ribabusplaceltd.com"
-                                    className="text-white"
-                                >
-                                    info@ribabusplaceltd.com
-                                </a>
-                            </p>
-                            <h5>Phone</h5>
-                            <p>+234 (0) 800-123-4567</p>
-                            <h5>Location</h5>
-                            <p>
-                                Road 4, Plot 859 Uratta Housing Estate, Owerri,
-                                Imo State, Nigeria
-                            </p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+  return (
+    <>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-            {/* Footer */}
-            <Footer darkMode={darkMode} />
-        </div>
-    );
+      {/* Hero / Banner */}
+      <section id="home" className="hero-section">
+        <Carousel fade controls={false} indicators={false}>
+          {heroSlides.map((slide, idx) => (
+            <Carousel.Item key={idx}>
+              <div className="hero-slide-wrapper">
+                <img
+                  className="hero-slide-img"
+                  src={slide.src}
+                  alt={slide.alt}
+                />
+                <div className="hero-overlay" />
+                <div className="hero-content">
+                  <h1 className="hero-title">{slide.heading}</h1>
+                  <p className="hero-subtext">{slide.subtext}</p>
+                  <Button className="hero-btn" variant="light">
+                    Order Now
+                  </Button>
+                </div>
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </section>
+
+      {/* Sustainability Section */}
+      <section id="about" className="py-5 mt-2">
+        <Container>
+          <h2 className="text-center mb-4">Our Sustainability Commitment</h2>
+          <Row>
+            {sustainabilityImages.map((img, idx) => (
+              <Col md={4} key={idx} data-aos="fade-up">
+                <Card
+                  className="shadow-sm"
+                  onClick={() =>
+                    openModal(
+                      <img src={img.src} alt={img.alt} className="img-fluid" />
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <Card.Img variant="top" src={img.src} />
+                  <Card.Body>
+                    <Card.Title>{img.title}</Card.Title>
+                    <Card.Text>{img.text}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* Delivery Section */}
+      <section id="services" className="py-5">
+        <Container>
+          <h2 className="text-center mb-4">Reliable Delivery</h2>
+          <Row>
+            {deliveryImages.map((img, idx) => (
+              <Col md={4} key={idx} data-aos="fade-up">
+                <Card
+                  className="shadow-sm"
+                  onClick={() =>
+                    openModal(
+                      <img src={img.src} alt={img.alt} className="img-fluid" />
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <Card.Img src={img.src} />
+                  <Card.Body>
+                    <h5>{img.title}</h5>
+                    <p>{img.text}</p>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* Purification Process */}
+      <section id="products" className="py-5">
+        <Container>
+          <h2 className="text-center mb-4">Purification Process</h2>
+          <Row>
+            {purificationSteps.map((step, idx) => (
+              <Col md={3} key={idx} data-aos="zoom-in">
+                <Card
+                  className="shadow-sm"
+                  onClick={() =>
+                    openModal(
+                      <img
+                        src={step.src}
+                        alt={step.alt}
+                        className="img-fluid"
+                      />
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <Card.Img src={step.src} />
+                  <Card.Body>
+                    <Card.Title>{step.title}</Card.Title>
+                    <Card.Text>{step.text}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* Certifications */}
+      <section id="gallery" className="py-5">
+        <Container>
+          <h2 className="text-center mb-4">Certifications</h2>
+          <Row className="text-center">
+            {certifications.map((cert, idx) => (
+              <Col md={3} key={idx} data-aos="fade-up">
+                <img
+                  src={cert.src}
+                  alt={cert.alt}
+                  className="img-fluid"
+                  style={{
+                    maxHeight: "100px",
+                    cursor: "pointer",
+                    objectFit: "contain",
+                  }}
+                  onClick={() =>
+                    openModal(
+                      <img
+                        src={cert.src}
+                        alt={cert.alt}
+                        className="img-fluid"
+                      />
+                    )
+                  }
+                />
+                <p>{cert.text}</p>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* Testimonials */}
+      <section id="testimonials" className="py-5">
+        <Container>
+          <h2 className="text-center mb-4">Testimonials</h2>
+          <Row>
+            {testimonials.map((t, idx) => (
+              <Col md={4} key={idx} data-aos="fade-up">
+                <Card className="shadow-sm p-3">
+                  <Card.Body>
+                    <Card.Text>“{t.text}”</Card.Text>
+                    <h6>- {t.author}</h6>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      {/* Gallery Section */}
+      <section id="gallery-images" className="py-5">
+        <Container>
+          <h2 className="text-center mb-4">Gallery</h2>
+          <Row>
+            {imagesToShow.map((img, idx) => (
+              <Col md={3} key={idx} data-aos="zoom-in">
+                <Card
+                  className="shadow-sm"
+                  onClick={() =>
+                    openModal(
+                      <img src={img.src} alt={img.alt} className="img-fluid" />
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                >
+                  <Card.Img src={img.src} />
+                </Card>
+              </Col>
+            ))}
+          </Row>
+
+          <div className="text-center mt-4">
+            {showFullGallery ? (
+              <Button
+                variant="secondary"
+                onClick={() => setShowFullGallery(false)}
+              >
+                See Less
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                onClick={() => setShowFullGallery(true)}
+              >
+                See More
+              </Button>
+            )}
+          </div>
+        </Container>
+      </section>
+
+      {/* Video Section */}
+      <section id="contact" className="py-5 text-center">
+        <Container>
+          <h2 className="mb-4">Watch Our Story</h2>
+          <div
+            style={{ cursor: "pointer", display: "inline-block" }}
+            onClick={() =>
+              openModal(
+                <div className="ratio ratio-16x9">
+                  <iframe
+                    src={videoData.videoUrl}
+                    title="Water Video"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )
+            }
+          >
+            <img
+              src={videoData.thumbnail}
+              alt="Video Thumbnail"
+              className="img-fluid rounded shadow-sm"
+            />
+            <p className="text-muted">click thumbnail to watch our story</p>
+          </div>
+        </Container>
+      </section>
+
+      <Footer darkMode={darkMode} />
+
+      <Modal show={showModal} onHide={closeModal} size="lg" centered>
+        <Modal.Body>{modalContent}</Modal.Body>
+      </Modal>
+    </>
+  );
 }
 
 export default App;

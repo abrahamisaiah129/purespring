@@ -1,269 +1,429 @@
-/* Import Google Font */
+/* ===== GOOGLE FONT ===== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-/* Base Typography */
+/* ===== BASE ===== */
 body {
-    font-family: "Poppins", sans-serif;
-    line-height: 1.6;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    scroll-behavior: smooth; /* smooth section scroll */
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  margin: 0;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
-    letter-spacing: 0.5px;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 p {
-    margin-bottom: 1rem;
-    font-size: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
-/* Navbar */
+/* ===== NAVBAR LINKS ===== */
 .nav-link-pro {
-    position: relative;
-    font-weight: 500;
-    padding: 8px 15px;
-    transition: all 0.3s ease;
-    color: white !important;
-    font-size: 1rem;
+  position: relative;
+  font-weight: 500;
+  padding: 8px 15px;
+  transition: all 0.3s ease;
+  color: white !important;
+  font-size: 1rem;
 }
-
 .nav-link-pro::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0%;
-    height: 2px;
-    background: white;
-    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
-    transform: translateX(-50%);
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translateX(-50%);
 }
-
 .nav-link-pro:hover::after {
-    width: 60%;
+  width: 60%;
 }
 
-/* Custom List Style */
-.custom-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* ===== CARDS & IMAGES ===== */
+.card, .p-4.shadow {
+  border: none;
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.4s ease;
+}
+.card:hover, .p-4.shadow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+.card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+section .card img, section img {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+}
+section img:hover,
+.card img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.custom-list li {
-    margin-bottom: 10px;
+/* ===== HERO / CAROUSEL ===== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  /* height: 100vh; full viewport height */
+  overflow: hidden;
+  margin: 0; /* no bottom margin */
+  padding: 0;
+}
+
+.hero-slide-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.75);
+  transition: transform 0.6s ease;
+}
+
+.hero-slide-wrapper:hover .hero-slide-img {
+  transform: scale(1.05);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  text-align: center;
+  padding: 0 1rem;
+  z-index: 5;
+}
+
+.hero-title {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-subtext {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-btn {
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s, transform 0.3s;
+}
+
+.hero-btn:hover {
+  background: #f1f1f1;
+  transform: translateY(-3px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  /* .hero-section { */
+    /* height: 70vh; reduce hero height a bit so content below is more visible */
+  /* } */
+
+  .hero-title {
+    font-size: 2rem; /* smaller than 2.2rem for readability */
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtext {
     font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    padding-left: 20px;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .hero-content {
+    padding: 0 0.75rem;
+  }
 }
 
-.custom-list li::before {
-    content: "•"; /* Clean modern bullet */
-    position: absolute;
-    left: 0;
-    font-size: 1.2rem;
-    line-height: 1;
-    color: #00b894; /* Green accent */
-    transition: color 0.3s ease, transform 0.3s ease;
+@media (max-width: 480px) {
+  /* .hero-section {
+    /* height: 60vh; */
+  /* }  */
+
+  .hero-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.85rem;
+  }
+
+  .hero-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 }
 
-.custom-list li:hover::before {
-    color: #0077b6; /* Aqua blue on hover */
-    transform: scale(1.2);
+/* Reset default carousel spacing */
+.carousel,
+.carousel-inner,
+.carousel-item {
+  margin: 0;
+  padding: 0;
 }
 
-/* Cards & Sections */
-.card,
-.p-4.shadow {
-    border: none;
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
-        box-shadow 0.4s ease;
+
+/* Ensure next section touches the hero */
+.hero-section + section {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
-.card:hover,
-.p-4.shadow:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+/* ===== TOGGLER ICON STYLES ===== */
+/* Remove built-in toggler icon background */
+.glass-navbar .navbar-toggler-icon {
+  background-image: none;
 }
 
-/* Section Headings */
-section h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+/* Custom toggler bars */
+.custom-toggler .custom-toggler-icon {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--toggler-bar-color);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+.custom-toggler .custom-toggler-icon::before,
+.custom-toggler .custom-toggler-icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--toggler-bar-color);
+  transition: background-color 0.3s ease;
+}
+.custom-toggler .custom-toggler-icon::before {
+  top: -8px;
+}
+.custom-toggler .custom-toggler-icon::after {
+  top: 8px;
 }
 
-/* Buttons */
-button,
-.btn {
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-radius: 6px;
+/* CSS variable for toggler bar color */
+body {
+  --toggler-bar-color: #000000;
 }
-
-button:hover,
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Gallery */
-#gallery img {
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
-        box-shadow 0.3s ease;
-}
-
-#gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* AOS Custom Smooth Animations */
-[data-aos] {
-    transition-property: transform, opacity !important;
-    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1) !important;
-}
-
-/* Dark Mode */
 body.dark-mode {
-    background-color: #121212;
-    color: #f1f1f1;
+  --toggler-bar-color: #ffffff;
 }
-/* Footer Links */
+
+/* Optionally remove toggler border */
+.glass-navbar .navbar-toggler {
+  border-color: transparent;
+}
+
+/* ===== MODAL / POPUP ===== */
+.modal-body img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.modal-content {
+  border-radius: 8px;
+  background: white;
+}
+.modal-content.dark-mode {
+  background: #333;
+  color: #f1f1f1;
+}
+.modal-backdrop {
+  backdrop-filter: blur(5px);
+}
+.modal-dialog {
+  max-width: 90%;
+}
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translateY(-10%);
+}
+.modal.show .modal-dialog {
+  transform: translateY(0);
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+body.dark-mode .modal-content {
+  background: #333;
+  color: #f1f1f1;
+}
+body.dark-mode .carousel-caption {
+  background: rgba(0, 0, 0, 0.6);
+}
+body.dark-mode .card {
+  background: #1e1e1e;
+  color: #f1f1f1;
+}
+
+/* ===== FOOTER & OTHER STYLES ===== */
+footer {
+  color: white;
+}
+.footer-wrapper {
+  transition: background 0.4s ease, color 0.4s ease;
+}
 .footer-links li {
-    margin: 6px 0;
+  margin: 6px 0;
 }
-
 .footer-links a {
-    color: white;
-    text-decoration: none;
-    transition: color 0.3s ease, padding-left 0.3s ease;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease, padding-left 0.3s ease;
 }
-
 .footer-links a:hover {
-    color: #f1f1f1;
-    padding-left: 5px;
+  color: #f1f1f1;
+  padding-left: 5px;
 }
-/* Social Icons */
 .social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    margin-right: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+social-icons a:hover {
+  background: white;
+  color: #0077b6;
+  transform: translateY(-3px);
+}
+/* body.dark-mode footer { */
+  /* tweak if needed */
+/* } */
+body.dark-mode .footer-links a {
+  color: #ddd;
+}
+body.dark-mode .footer-links a:hover {
+  color: white;
 }
 
-.social-icons a:hover {
-    background: white;
-    color: #0077b6; /* Brand aqua blue */
-    transform: translateY(-3px);
-}
-/* Scroll To Top Button */
+/* ===== SCROLL TO TOP BUTTON ===== */
 .scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 25px;
-    z-index: 1000;
-    background: linear-gradient(135deg, #0077b6, #00b894);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    transition: all 0.3s ease;
+  position: fixed;
+  bottom: 30px;
+  right: 25px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #0077b6, #00b894);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
-
 .scroll-to-top:hover {
-    background: white;
-    color: #0077b6;
-    transform: translateY(-3px);
+  background: white;
+  color: #0077b6;
+  transform: translateY(-3px);
 }
-/* Loader Overlay */
+
+/* ===== LOADER STYLES ===== */
 .loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #0077b6, #00b894);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0077b6, #00b894);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
-
 .loader-overlay.fade-out {
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 }
-
 .loader-logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 15px;
-    animation: pulse 1.5s infinite;
-    border-radius: 8px;
+  width: 120px;
+  height: auto;
+  margin-bottom: 15px;
+  animation: pulse 1.5s infinite;
+  border-radius: 8px;
 }
-
 .loader-text {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    animation: fadeInUp 1.5s infinite alternate;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  animation: fadeInUp 1.5s infinite alternate;
 }
 
-/* Logo Pulse Effect */
+/* ===== KEYFRAMES ===== */
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.9;
-    }
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.9;
-    }
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
 }
-
-/* Text Fade-in Up */
 @keyframes fadeInUp {
-    0% {
-        opacity: 0.6;
-        transform: translateY(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0.6;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
