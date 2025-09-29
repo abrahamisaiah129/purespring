@@ -119,7 +119,7 @@ function App() {
       text: "Multi-stage filters remove sediments and impurities.",
     },
     {
-      src: "/assets/defImg/purification-stage.jpg",
+      src: "/assets/defImg/filtered-water.jpg",
       alt: "Purification",
       comment: "RO / UV purification equipment",
       title: "3. Purification",
